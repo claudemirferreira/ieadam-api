@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import br.com.setebit.ieadam.api.security.enums.ProfileEnum;
 
 @Entity
-@Table(name = "saa_usuario")
+@Table(name = "saa_user")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1869155013000688801L;
@@ -25,7 +25,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_Sequence")
 	@SequenceGenerator(name = "user_Sequence", sequenceName = "user_Sequence")
-	@Column(name = "usua_id")
+	@Column(name = "user_id")
 	private Long id;
 
 	@NotBlank(message = "Email required")

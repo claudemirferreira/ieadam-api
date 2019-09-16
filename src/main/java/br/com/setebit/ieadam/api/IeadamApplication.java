@@ -12,10 +12,10 @@ import br.com.setebit.ieadam.api.security.enums.ProfileEnum;
 
 
 @SpringBootApplication
-public class HelpDeskApplication {
+public class IeadamApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HelpDeskApplication.class, args);
+		SpringApplication.run(IeadamApplication.class, args);
 	}
 	
     @Bean
@@ -23,7 +23,6 @@ public class HelpDeskApplication {
         return args -> {
             initUsers(userRepository, passwordEncoder);
         };
-
     }
     
 	private void initUsers(UserRepository userRepository, PasswordEncoder passwordEncoder) {
