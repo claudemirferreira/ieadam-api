@@ -27,11 +27,11 @@ public class IeadamApplication {
     
 	private void initUsers(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         User admin = new User();
-        admin.setEmail("admin@helpdesk.com");
-        admin.setPassword(passwordEncoder.encode("123456"));
+        admin.setEmail("claudemirramosferreira@gmal.com");
+        admin.setPassword(passwordEncoder.encode("123"));
         admin.setProfile(ProfileEnum.ROLE_ADMIN);
 
-        User find = userRepository.findByEmail("admin@helpdesk.com");
+        User find = userRepository.findByEmail("claudemirramosferreira@gmal.com");
         if (find == null) {
             userRepository.save(admin);
         }
