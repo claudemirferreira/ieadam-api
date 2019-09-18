@@ -5,17 +5,23 @@ import java.io.OutputStream;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.setebit.ieadam.api.dto.ParametroRelatorioDTO;
+import br.com.setebit.ieadam.api.dto.ParametroRelatorioDTO2;
+import br.com.setebit.ieadam.api.response.Response;
+import br.com.setebit.ieadam.api.security.entity.Usuario;
+import br.com.setebit.ieadam.api.service.RelatorioService;
 import br.com.setebit.ieadam.api.util.RelatorioUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -27,10 +33,10 @@ import net.sf.jasperreports.engine.JasperPrint;
 public class RelatorioController {
 
 	@Autowired
-	private DataSource dataSource;
-
-	@Autowired
 	private RelatorioUtil relatorioUtil;
+	
+	@Autowired
+	private RelatorioService service;
 
 	@PostMapping(path = "/pdf")
 	@PreAuthorize("hasAnyRole('ADMIN')")
@@ -42,19 +48,25 @@ public class RelatorioController {
 
 		JasperPrint jasperPrint = relatorioUtil.gerarPdf(dto);
 
-		// = JasperFillManager.fillReport(jasperReport, parametros,
-		// dataSource.getConnection());
-
 		// Configura a respota para o tipo PDF
 		response.setContentType("application/pdf");
 		// Define que o arquivo pode ser visualizado no navegador e também nome final do
 		// arquivo
 		// para fazer download do relatório troque 'inline' por 'attachment'
-		response.setHeader("Content-Disposition", "inline; filename=RelatorioDebitoFinanceiro.pdf");
+		response.setHeader("Content-Disposition", "inline; filename=Relatorio.pdf");
 
 		// Faz a exportação do relatório para o HttpServletResponse
 		final OutputStream outStream = response.getOutputStream();
 		JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+	}
+	
+	@GetMapping(value = "/carregarDados/{id}")
+	@PreAuthorize("hasAnyRole('ADMIN','CUSTOMER','TECHNICIAN')")
+	public ResponseEntity<Response<ParametroRelatorioDTO2>> carregarDados(@PathVariable("id") int id) {
+		ParametroRelatorioDTO2 dto = service.garregarDadosTela(new Usuario(id));
+		Response<ParametroRelatorioDTO2> response = new Response<ParametroRelatorioDTO2>();
+		response.setData(dto);
+		return ResponseEntity.ok(response);
 	}
 
 }
