@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.NoResultException;
 
+import br.com.setebit.ieadam.api.security.entity.User;
 import br.com.setebit.ieadam.api.security.entity.Usuario;
 
 public interface UsuarioServico {
@@ -19,5 +20,7 @@ public interface UsuarioServico {
 	public Usuario findByLoginAndSenha(String login, String senha) throws NoResultException;
 
 	public List<Usuario> findByUsuario(Usuario usuario) throws NoResultException;
+	
+	public Usuario findByEmail(String email);
 
 }

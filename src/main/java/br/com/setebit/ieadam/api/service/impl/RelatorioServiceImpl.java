@@ -62,7 +62,7 @@ public class RelatorioServiceImpl implements RelatorioService {
 		this.parametroRelatorioDTO.setZonas(new ArrayList<ZonaDTO>());
 
 		JwtUser user = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		this.parametroRelatorioDTO.getUsuarioLogado().setIdUsuario(Integer.parseInt(user.getId().toString()));
+		this.parametroRelatorioDTO.getUsuarioLogado().setIdUsuario(user.getId());
 		this.parametroRelatorioDTO.getUsuarioLogado().setLogin(user.getUsername());
 		
 		this.preencherCombos(this.parametroRelatorioDTO.getUsuarioLogado());

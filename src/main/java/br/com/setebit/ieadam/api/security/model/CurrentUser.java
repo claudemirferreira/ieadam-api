@@ -1,13 +1,14 @@
 package br.com.setebit.ieadam.api.security.model;
 
 import br.com.setebit.ieadam.api.security.entity.User;
+import br.com.setebit.ieadam.api.security.entity.Usuario;
 
 public class CurrentUser {
 	
 	private String token;
-	private User user;
+	private Usuario user;
 
-	public CurrentUser(String token, User user) {
+	public CurrentUser(String token, Usuario user) {
 		this.token = token;
 		this.user = user;
 	}
@@ -20,11 +21,11 @@ public class CurrentUser {
 		this.token = token;
 	}
 
-	public User getUser() {
+	public Usuario getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Usuario user) {
 		this.user = user;
 	}
 }

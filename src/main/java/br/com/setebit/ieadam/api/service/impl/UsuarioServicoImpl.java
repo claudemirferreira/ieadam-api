@@ -51,4 +51,9 @@ public class UsuarioServicoImpl implements UsuarioServico {
 		return usuarioRepositorioJPA.findByUsuario(usuario);
 	}
 
+	@Override
+	public Usuario findByEmail(String email) {
+		return usuarioRepositorio.findByEmail(email);
+	}
+
 }

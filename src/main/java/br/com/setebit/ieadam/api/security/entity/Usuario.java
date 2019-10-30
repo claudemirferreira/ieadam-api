@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import br.com.setebit.ieadam.api.security.enums.ProfileEnum;
+
 /**
  * 
  * @author altitdb
@@ -67,6 +69,9 @@ public class Usuario implements Serializable {
 
 	@Column
 	private String nome;
+	
+	@Column
+	private ProfileEnum profile;
 	
 	public Usuario() {}
 	
@@ -200,12 +205,12 @@ public class Usuario implements Serializable {
 	public void setLogomarca(byte[] logomarca) {
 		this.logomarca = logomarca;
 	}
-	
-//	public Membro getMembro() {
-//		return membro;
-//	}
-//
-//	public void setMembro(Membro membro) {
-//		this.membro = membro;
-//	}
+
+	public ProfileEnum getProfile() {
+		return profile;
+	}
+
+	public void setProfile(ProfileEnum profile) {
+		this.profile = profile;
+	}
 }
